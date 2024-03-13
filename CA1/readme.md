@@ -22,4 +22,20 @@ Support for jobTitle was not required by the class assignment, but was listed as
 The repository was marked with tag ca1-part1.
 
 <h2>Part 2</h2>
-[placeholder]
+The modifications needed to add support for the email field were similar to those of part 1, as evidenced by the successful addition:
+```console
+$ curl -X POST localhost:8080/api/employees -d "{\"firstName\": \"Bilbo\", \"lastName\": \"Baggins\", \"description\": \"burglar\", \"jobTitle\": \"adventurer\", \"jobYears\": \"100\", \"email\": \"bilbo.baggins@theshire.com\"}" -H "Content-Type:application/json"
+```
+
+
+As requested, the work leading to the addition of the email field was done on branch email-field, which was later merged with main.
+Same for the branch fix-invalid-email, although I was unable to add the required validation of the email.
+I modified the constructor of class Employee to throw an exception should any of the arguments be invalid, however Spring seems to ignore this exception and proceeds with the creation of Employee objects.
+I made further attempts to enforce this validation using annotations, bean validation, but I got stuck on where and how to configure beans.
+
+The tag v1.3.0 was added after the addition of support for the email field, and the tag v1.3.1 was added after the attempted enforcement of argument validation.
+
+The repository was marked with tag ca1-part2.
+
+<h2>Alternative Solution</h2>
+

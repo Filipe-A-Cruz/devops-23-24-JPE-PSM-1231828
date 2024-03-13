@@ -40,6 +40,8 @@ public class ReactAndSpringDataRestApplication {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
         }
     }
 }
