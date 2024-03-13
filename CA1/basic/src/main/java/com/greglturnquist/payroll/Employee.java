@@ -34,15 +34,17 @@ public class Employee {
     private String lastName;
     private String description;
     private String jobTitle;
+    private int jobYears;
 
     private Employee() {
     }
 
-    public Employee(String firstName, String lastName, String description, String jobTitle) {
+    public Employee(String firstName, String lastName, String description, String jobTitle, int jobYears) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.description = description;
         this.jobTitle = jobTitle;
+        this.jobYears = jobYears;
     }
 
     @Override
@@ -54,12 +56,13 @@ public class Employee {
                 Objects.equals(firstName, employee.firstName) &&
                 Objects.equals(lastName, employee.lastName) &&
                 Objects.equals(description, employee.description) &&
-                Objects.equals(jobTitle, employee.jobTitle);
+                Objects.equals(jobTitle, employee.jobTitle) &&
+                Objects.equals(jobYears, jobYears);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, firstName, lastName, description, jobTitle);
+        return Objects.hash(id, firstName, lastName, description, jobTitle, jobYears);
     }
 
     public Long getId() {
@@ -102,14 +105,23 @@ public class Employee {
         this.jobTitle = jobTitle;
     }
 
-    @Override
-    public String toString() {
+    public int getJobYears() {
+        return jobYears;
+    }
+
+    public void setJobYears(int jobYears) {
+        this.jobYears = jobYears;
+    }
+
+    @java.lang.Override
+    public java.lang.String toString() {
         return "Employee{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", description='" + description + '\'' +
                 ", jobTitle='" + jobTitle + '\'' +
+                ", jobYears=" + jobYears +
                 '}';
     }
 }
