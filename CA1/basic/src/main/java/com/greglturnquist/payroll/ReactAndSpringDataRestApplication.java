@@ -18,6 +18,9 @@ package com.greglturnquist.payroll;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.io.*;
+import java.util.Properties;
+
 /**
  * @author Greg Turnquist
  */
@@ -25,8 +28,19 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ReactAndSpringDataRestApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ReactAndSpringDataRestApplication.class, args);
-	}
+    public static void main(String[] args) {
+        try {
+            String configFilePath = "src/config.properties";
+            FileInputStream propsInput = new FileInputStream("C:\\temp\\devops-23-24-JPE-PSM-1231828\\CA1\\basic\\src\\main\\java\\com\\greglturnquist\\payroll\\config.properties");
+            Properties prop = new Properties();
+            prop.load(propsInput);
+            System.out.println(prop.getProperty("DB_USER"));
+            SpringApplication.run(ReactAndSpringDataRestApplication.class, args);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
 // end::code[]

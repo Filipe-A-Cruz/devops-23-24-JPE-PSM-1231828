@@ -30,6 +30,7 @@ public class Employee {
 
     private @Id
     @GeneratedValue Long id; // <2>
+
     private String firstName;
     private String lastName;
     private String description;
@@ -42,12 +43,27 @@ public class Employee {
 
     public Employee(String firstName, String lastName, String description,
                     String jobTitle, int jobYears, String email) {
+        if (isInvalidArguments(firstName, lastName, description,
+                jobTitle, jobYears, email)) {
+            throw new IllegalArgumentException("Invalid employee arguments.");
+        }
         this.firstName = firstName;
         this.lastName = lastName;
         this.description = description;
         this.jobTitle = jobTitle;
         this.jobYears = jobYears;
         this.email = email;
+    }
+
+    public boolean isInvalidArguments(String firstName, String lastName, String description,
+                                      String jobTitle, int jobYears, String email) {
+        if (firstName == null || firstName.trim().isEmpty()) return true;
+        if (lastName == null || lastName.trim().isEmpty()) return true;
+        if (description == null || description.trim().isEmpty()) return true;
+        if (jobTitle == null || jobTitle.trim().isEmpty()) return true;
+        if (jobYears < 0) return true;
+        if (email == null || email.trim().isEmpty() || !email.contains("@")) return true;
+        return false;
     }
 
     @Override
