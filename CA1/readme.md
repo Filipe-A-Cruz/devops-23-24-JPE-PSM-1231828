@@ -31,6 +31,7 @@ The repository was marked with tag ca1-part1.
 <h2>Part 2</h2>
 The modifications needed to add support for the email field were similar to those of part 1, as evidenced by the successful addition:
 
+
 ```console
 $ curl -X POST localhost:8080/api/employees -d "{\"firstName\": \"Bilbo\", \"lastName\": \"Baggins\", \"description\": \"burglar\", \"jobTitle\": \"adventurer\", \"jobYears\": \"100\", \"email\": \"bilbo.baggins@theshire.com\"}" -H "Content-Type:application/json"
 ```
@@ -60,7 +61,11 @@ On the one hand, this means that a branch can never truly be deleted, only close
 On the other hand, it is possible to associate tags to any past changeset, allowing the developer to easily return to any point of the development history via tag.
 See section [Tagging](#tag7) for further details.
 
-Additionally, Mercurial comes packaged with an instant-webserver solution, allowing the developer to self his repository, without the need for external storage providers. See section [Self-publishing](#tag3.2) for further details.
+Additionally, Mercurial comes packaged with an instant-webserver solution, allowing the developer to self-publish his repository, without the need for external storage providers. See section [Self-publishing](#tag3.2) for further details.
+
+<br/>
+
+<strong>Table of Contents</strong>
 
 <br/>
 
@@ -286,7 +291,7 @@ v1.0                               2:313317f70d52
 ```
 
 ```$ hg tags``` shows all tags.
-The tag <em>tip</em> marks the most recent changeset.
+The tag <strong>tip</strong> marks the most recent changeset.
 The newly created tag will now appear in the log,
 
 ```console
