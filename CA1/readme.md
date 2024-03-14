@@ -47,8 +47,22 @@ The repository was marked with tag ca1-part2.
 ---
 
 <h2>Alternative Solution</h2>
+
 Mercurial SCM is a distributed version control solution, available for Linux, Windows and MacOS.
 Most commands and features are similar to those of Git.
+
+<br/>
+
+<strong>Differences to Git</strong>
+
+Mercurial utilizes changesets instead of pointers/snapshots to keep track of branches/commits.
+On the one hand, this means that a branch can never truly be deleted, only closed.
+On the other hand, it is possible to associate tags to any past changeset, allowing the developer to easily return to any point of the development history via tag.
+See section [Tagging](#tag7) for further details.
+
+Additionally, Mercurial comes packaged with an instant-webserver solution, allowing the developer to self his repository, without the need for external storage providers. See section [Self-publishing](#tag3.2) for further details.
+
+<br/>
 
 1. [Downloading Mercurial SCM](#tag1)
 2. [Configuring username and email](#tag2)
