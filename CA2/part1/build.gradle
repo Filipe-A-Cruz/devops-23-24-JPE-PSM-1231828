@@ -72,3 +72,9 @@ task copyTask(type: Copy) {
     from 'src'
     into 'backup'
 }
+
+task zipTask(type: Zip) {
+    from 'src'
+    archiveFileName = 'archive.zip'
+    destinationDirectory = file("$rootDir")
+}
