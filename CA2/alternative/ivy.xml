@@ -1,0 +1,27 @@
+<ivy-module version="2.0">
+    <info organisation="org.springframework.boot" module="spring-boot-sample-ant"/>
+    <configurations>
+        <conf name="compile" description="everything needed to compile this module"/>
+        <conf name="runtime" extends="compile" description="everything needed to run this module"/>
+        <conf name="test" extends="compile" description="everything needed to test this module"/>
+    </configurations>
+
+    <dependencies>
+
+        <dependency org="org.springframework.boot" name="spring-boot-starter-data-jpa"
+                    rev="${spring-boot.version}" conf="compile"/>
+
+        <dependency org="org.springframework.boot" name="spring-boot-starter-data-rest"
+                    rev="${spring-boot.version}" conf="compile"/>
+
+        <dependency org="org.springframework.boot" name="spring-boot-starter-thymeleaf"
+                    rev="${spring-boot.version}" conf="compile"/>
+
+        <dependency org="com.h2database" name="h2"
+                    rev="${h2.version}" conf="runtime"/>
+
+        <dependency org="org.springframework.boot" name="spring-boot-starter-test"
+                    rev="${spring-boot.version}" conf="test"/>
+
+    </dependencies>
+</ivy-module>
