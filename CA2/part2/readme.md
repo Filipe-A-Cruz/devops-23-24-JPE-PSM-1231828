@@ -259,7 +259,7 @@ You can then define a set of tasks which compile an executable .jar.
 </project>
 ```
 
-You'll notice this set of task sequentially depend on each, i.e. build depends on compile, compile depends on and so forth. 
+You'll notice this set of tasks sequentially depend on each other, i.e. build depends on compile, compile depends on init and so forth. 
 This chained dependence of tasks is somewhat equivalent to the lifecyle of Maven builds.
 The build task is especially complex since a standalone executable .jar must be bundled with all the required dependencies,
 including the Spring Boot Loader module previously downloaded and stored in the ```lib\loader``` directory.
@@ -287,7 +287,7 @@ and place it in the ```build``` directory.
 
 <strong>5. Where I ran out of time</strong> <a id="tag7"></a>
 
-Unfortunately, when running the executable .jar, spring will initially boot normally and then launch the following error,
+Unfortunately, when running the executable .jar, spring will initially boot normally and then throw the following error,
 
 ```
 Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
