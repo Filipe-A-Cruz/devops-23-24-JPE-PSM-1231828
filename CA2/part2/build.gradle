@@ -32,7 +32,6 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
-
 task copyJar(type: Copy) {
     from 'build/libs/react-and-spring-data-rest-basic-0.0.1-SNAPSHOT.jar'
     into 'dist'
