@@ -1,47 +1,69 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.2.4'
-	id 'io.spring.dependency-management' version '1.1.4'
-	id "org.siouan.frontend-jdk17" version "8.0.0"
+    id 'java'
+    id 'org.springframework.boot' version '3.2.4'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id "org.siouan.frontend-jdk17" version "8.0.0"
+    id 'war'
 }
 
 group = 'com.greglturnquist'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+    sourceCompatibility = '17'
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
-	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-	runtimeOnly 'com.h2database:h2'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-data-rest'
+    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    runtimeOnly 'com.h2database:h2'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    // To support war file for deploying to tomcat
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 task copyJar(type: Copy) {
-	from 'build/libs/react-and-spring-data-rest-basic-0.0.1-SNAPSHOT.jar'
-	into 'dist'
+    from 'build/libs/react-and-spring-data-rest-basic-0.0.1-SNAPSHOT.jar'
+    into 'dist'
 }
 
 task deleteWebpackFiles(type: Delete) {
-	delete 'src/main/resources/static/built'
+    delete 'src/main/resources/static/built'
 }
 
 clean.dependsOn deleteWebpackFiles
 
+// Configuration of the node.js
+// See: https://github.com/subiron/gradle-frontend-plugin
+// See also: https://github.com/eirslett/frontend-maven-plugin
 frontend {
-	nodeVersion = "16.20.2"
-	assembleScript = "run build"
-	cleanScript = "run clean"
-	checkScript = "run check"
-	}
+    nodeVersion = "16.20.2"
+
+    System.out.println(String.format("I am running on: %s(%s)", System.getProperty("os.arch"), System.getProperty("os.name")))
+
+    if (System.getProperty("os.arch").equals("aarch64")) {
+        if (System.getProperty("os.name").equals("Linux")) {
+            nodeDistributionUrlPathPattern = 'vVERSION/node-vVERSION-linux-arm64.TYPE'
+        }
+
+        if (System.getProperty("os.name").equals("Mac OS X")) {
+            nodeDistributionUrlPathPattern.set("vVERSION/node-vVERSION-darwin-x64.TYPE")
+        }
+    }
+
+    // See 'scripts' section in your 'package.json file'
+    assembleScript = "run build"
+    cleanScript = "run clean"
+    checkScript = "run check"
+}
