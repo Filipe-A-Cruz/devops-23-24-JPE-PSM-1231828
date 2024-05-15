@@ -74,14 +74,14 @@ Vagrant.configure("2") do |config|
       git clone https://github.com/Filipe-A-Cruz/devops-23-24-JPE-PSM-1231828.git
       # cd tut-basic-gradle
       cd devops-23-24-JPE-PSM-1231828/CA2/part2
-      # rm -r node_modules
-      # npm install
+      rm -r node_modules
+      npm install
       # chmod u+x gradlew
       # ./gradlew clean build
       gradle clean build
       # To deploy the war file to tomcat9 do the following command:
-      java -jar build/libs/react-and-spring-data-rest-basic-0.0.1-SNAPSHOT.war
-      # sudo cp ./build/libs/react-and-spring-data-rest-basic-0.0.1-SNAPSHOT.war /var/lib/tomcat9/webapps
+      java -jar build/libs/basic-0.0.1-SNAPSHOT.war
+      # sudo cp ./build/libs/basic-0.0.1-SNAPSHOT.war /var/lib/tomcat9/webapps
     SHELL
   end
 end
