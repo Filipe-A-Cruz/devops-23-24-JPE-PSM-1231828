@@ -174,3 +174,98 @@ the ```db``` VM,
 ![alt text](db.png "Title")
 
 ---
+
+<h2>Alternative Solution</h2>
+
+VMware Workstation Pro is the industry standard desktop hypervisor and is officially
+supported by HashiCorp, the developer of Vagrant. In general, since VMware is a commercial product,
+the level of support and user-friendliness is high. HashiCorp also provides documentation
+on how to smoothly replace VirtualBox with VMware, see https://developer.hashicorp.com/vagrant/docs/providers/vmware.
+For these reasons, VMware is a drop-in replacement for VirtualBox.
+
+As of May 14<sup>th</sup>, 2024 VMware Workstation Pro is free for personal use.
+
+<h3> 1. VMware Workstation Pro installation</h3>
+
+You can download the installer from https://support.broadcom.com/group/ecx/productdownloads?subfamily=VMware+Workstation+Pro. 
+You'll need to create an account. As of May 16<sup>th</sup>, 2024, the recommended version for Windows users is 
+WMware Workstation Pro 17.0 for Personal Use (Windows), Release 17.5.2. Once the installation is completed, run VMware for 
+the first time. When prompted for a license key, select the option "Use VMware Workstation 17 for Personal Use". 
+
+VMware Workstation Pro automatically configures the NAT and host-only network adapters. You can view the configuration in 
+the tab Edit>Virtual Network Editor.
+
+<h3> 2. Vagrant VMware Provider installation</h3>
+
+To use Vagrant boxes with VMware Workstation Pro, you'll first need to install the Vagrant VMware Utility, available for 
+download at https://developer.hashicorp.com/vagrant/install/vmware. Once the utility is installed, open a cmd line and 
+install the Vagrant VMware provider plugin,
+
+```
+$ vagrant plugin install vagrant-vmware-desktop
+```
+
+<h3> 3. Vagrantfile and other configurations</h3>
+
+You'll need to provision a Vagrant box compatible with VMware. HashiCorp provides a box with Ubuntu 18.04 
+"Bionic Beaver". Copy the Vagrantfile used in ca3-part2 to a new folder, e.g. CA3\Alternative, and edit the 
+following lines, 
+
+```
+Vagrant.configure("2") do |config|
+  config.vm.box = "hashicorp/bionic64"
+  # config.vm.box = "ubuntu/bionic64"
+...
+  config.vm.define "db" do |db|
+    db.vm.box = "hashicorp/bionic64"
+    # db.vm.box = "ubuntu/bionic64"
+...
+  config.vm.define "web" do |web|
+    web.vm.box = "hashicorp/bionic64"
+    # web.vm.box = "ubuntu/bionic64"
+...
+end
+```
+
+Additionally, assuming you haven't destroyed the VMs created in part2, the IPv4 addresses ```192.168.56.xxx``` 
+are reserved by VirtualBox. Edit the following lines on Vagrantfile, 
+
+```
+...
+  config.vm.define "db" do |db|
+...
+    db.vm.network "private_network", ip: "192.168.64.11"
+    # db.vm.network "private_network", ip: "192.168.56.11"
+...
+  config.vm.define "web" do |web|
+...
+    web.vm.network "private_network", ip: "192.168.64.10"
+    # web.vm.network "private_network", ip: "192.168.56.10"
+...
+```
+
+Note that, depending on the configuration of your host machine, the address space ```192.168.64.xxx``` 
+may be reserved, so you may have to set a different IP for you VMs. Since you've edited the IP of the 
+```db``` VM, you'll have to edit ```src\main\resources\application.properties```, so that Spring is aware 
+of the address of the ```db``` VM, 
+
+```
+spring.datasource.url=jdbc:h2:tcp://192.168.64.11:9092/./jpadb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+# spring.datasource.url=jdbc:h2:tcp://192.168.56.11:9092/./jpadb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+```
+
+<h3> 4. Running the app</h3>
+
+From the cmd line, move to the directory holding Vagrantfile and run ```$ vagrant up``` with the following provider option, 
+
+```
+$ cd C:\temp\devops-23-24-JPE-PSM-1231828\CA3\alternative
+$ vagrant up --provider vmware_desktop
+```
+
+Once the VMs are provisioned and running, you can use the same URLs as in part2 to view the web page created 
+by the ```web``` VM, http://localhost:8080/basic-0.0.1-SNAPSHOT/, and the h2-console of the ```db``` VM,
+http://localhost:8080/basic-0.0.1-SNAPSHOT/h2-console/ using the connection string
+```jdbc:h2:tcp://192.168.64.11:9092/./jpadb``` (user: sa, blank password).
+
+---
