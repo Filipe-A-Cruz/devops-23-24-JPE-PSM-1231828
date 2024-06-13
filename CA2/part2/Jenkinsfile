@@ -13,7 +13,7 @@ pipeline {
                 dir('CA2/part2') {
                    echo 'Assembling...'
                    sh 'chmod u+x gradlew'
-                   sh 'chmod u+x webpack'
+                   sh 'chmod u+x webpack.config.js'
                    sh './gradlew clean assemble'
                 }
             }
