@@ -95,3 +95,5 @@ is named "master". I changed the default branch name in the repository according
 <h2>Part 2</h2>
 
 [placeholder]
+
+jdk 17 required
