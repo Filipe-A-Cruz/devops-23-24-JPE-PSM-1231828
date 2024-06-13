@@ -12,6 +12,7 @@ pipeline {
             steps {
                 dir('CA2/part2') {
                    echo 'Assembling...'
+                   sh 'apt-get update -y'
                    sh 'apt-get install nodejs -y'
                    sh 'apt-get install npm -y'
                    sh 'rm -r node_modules'
