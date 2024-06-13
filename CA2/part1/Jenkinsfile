@@ -19,15 +19,19 @@ pipeline {
         }
         stage('Test') {
             steps {
-                echo 'Testing...'
-                sh 'chmod u+x gradlew'
-                sh './gradlew test'
+                dir('CA2/part1') {
+                    echo 'Testing...'
+                    sh 'chmod u+x gradlew'
+                    sh './gradlew test'
+                }
             }
         }
         stage('Archive') {
             steps {
-                echo 'Archiving...'
-                archiveArtifacts 'build/distributions/*'
+                dir('CA2/part1') {
+                    echo 'Archiving...'
+                    archiveArtifacts 'build/distributions/*'
+                }
             }
         }
     }
