@@ -12,9 +12,6 @@ pipeline {
             steps {
                 dir('CA2/part2') {
                    echo 'Assembling...'
-                   sh 'sudo apt-get install npm -y'
-                   sh 'rm -r node_modules'
-                   sh 'npm install'
                    sh 'chmod u+x gradlew'
                    sh './gradlew clean assemble'
                 }
