@@ -12,6 +12,7 @@ pipeline {
             steps {
                 dir('CA2/part1') {
                    echo 'Building...'
+                   sh 'chmod u+x gradlew'
                    sh './gradlew clean build'
                 }
             }
