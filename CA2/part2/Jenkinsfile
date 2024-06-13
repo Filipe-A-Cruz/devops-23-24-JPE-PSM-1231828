@@ -12,8 +12,8 @@ pipeline {
             steps {
                 dir('CA2/part2') {
                    echo 'Assembling...'
+                   sh 'npm install'
                    sh 'chmod u+x gradlew'
-                   sh 'chmod u+x webpack.config.js'
                    sh './gradlew clean assemble'
                 }
             }
