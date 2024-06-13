@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out...'
+                git 'https://github.com/Filipe-A-Cruz/devops-23-24-JPE-PSM-1231828'
+            }
+        }
+        stage('Assemble') {
+            steps {
+                dir('CA2/part2') {
+                   echo 'Assembling...'
+                   sh 'chmod u+x gradlew'
+                   sh './gradlew clean assemble'
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                dir('CA2/part2') {
+                    echo 'Testing...'
+                    sh 'chmod u+x gradlew'
+                    sh './gradlew test'
+                }
+            }
+        }
+        stage('Archive') {
+            steps {
+                dir('CA2/part2') {
+                    echo 'Archiving...'
+                    archiveArtifacts 'build/distributions/*'
+                }
+            }
+        }
+    }
+}
