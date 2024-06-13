@@ -10,9 +10,10 @@ pipeline {
         }
         stage('Build') {
             steps {
-                echo 'Building...'
-                cd CA2/part1
-                sh './gradlew clean build'
+                dir('CA2/part1') {
+                   echo 'Building...'
+                   sh './gradlew clean build'
+                }
             }
         }
         stage('Archiving') {
