@@ -45,11 +45,16 @@ pipeline {
                     echo 'Publishing Javadoc...'
                     sh 'chmod u+x gradlew'
                     sh './gradlew myJavadocs'
-                    publishHTML target: [
-                                reportDir: 'docs',
-                                reportFiles: 'index.html',
-                                reportName: 'Javadoc'
-                              ]
+                    publishHTML([
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: false,
+                        reportDir: 'docs',
+                        reportFiles: 'index.html',
+                        reportName: 'Javadoc',
+                        reportTitles: '',
+                        useWrapperFileDirectly: true
+                        ])
                 }
             }
         }
