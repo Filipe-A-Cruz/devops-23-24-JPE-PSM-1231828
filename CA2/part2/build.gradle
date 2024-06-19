@@ -41,6 +41,12 @@ task deleteWebpackFiles(type: Delete) {
     delete 'src/main/resources/static/built'
 }
 
+task myJavadocs(type: Javadoc) {
+    source = sourceSets.main.allJava
+    classpath = sourceSets.main.runtimeClasspath
+    destinationDir = file("docs")
+}
+
 clean.dependsOn deleteWebpackFiles
 
 // Configuration of the node.js

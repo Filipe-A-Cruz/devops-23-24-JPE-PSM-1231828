@@ -43,8 +43,13 @@ pipeline {
             steps {
                 dir('CA2/part2') {
                     echo 'Publishing Javadoc...'
-                    sh 'javadoc -d docs src/main/java/com/greglturnquist/payroll/*.java'
-
+                    sh 'chmod u+x gradlew'
+                    sh './gradlew myJavadocs'
+                    publishHTML target: [
+                                reportDir: 'docs',
+                                reportFiles: 'index.html',
+                                reportName: 'Javadoc'
+                              ]
                 }
             }
         }
