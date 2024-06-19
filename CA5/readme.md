@@ -158,7 +158,7 @@ As for the stage itself in Jenkinsfile,
 
 ```
 pipeline {
-agent any
+    agent any
 
     stages {
         ...
@@ -186,7 +186,7 @@ agent any
 }
 ```
 
-Afterwards I built and run the container,
+Afterwards I built and ran the container,
 
 ```
 $ cd C:\temp\devops-23-24-JPE-PSM-1231828\CA5
@@ -194,7 +194,7 @@ $ docker build -t jenkins-with-sudo .
 $ docker run -d -p 127.0.0.1:8080:8080 jenkins-with-sudo
 ```
 
-and created a pipeline job in Jenkins, named ```ca5-part2``` with the following configurations,
+and created a pipeline job in Jenkins, named ```ca5-part2``` with the following configuration,
 
 ```
 ...
@@ -213,7 +213,7 @@ Pipeline
 
 As a remainder, the visibility of my repository has been set to Public since ca3-part2.
 
-Below is screenshot shot archived artifacts and the newly created Javadoc tab in the sidebar, 
+Below is a screenshot showing the archived artifacts and the newly created Javadoc tab in the sidebar, 
 
 ![alt text](jenkins-part2.png "Title")
 
