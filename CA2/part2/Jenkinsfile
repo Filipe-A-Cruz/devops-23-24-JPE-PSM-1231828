@@ -58,5 +58,14 @@ pipeline {
                 }
             }
         }
+        stage('Publish Image') {
+            steps {
+                dir('CA2/part2') {
+                    echo 'Publishing Docker Image...'
+                    def customImage = docker.build("ca5-part2-Filipe-A-Cruz:${env.BUILD_ID}")
+                    customImage.push('latest')
+                }
+            }
+        }
     }
 }
