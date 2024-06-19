@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('filipeacruz-dockerhub')
+    }
 
     stages {
         stage('Checkout') {
@@ -62,10 +65,14 @@ pipeline {
             steps {
                 dir('CA2/part2') {
                     echo 'Publishing Docker Image...'
-                    script {
-                        def customImage = docker.build("ca5-part2-Filipe-A-Cruz:${env.BUILD_ID}")
-                        customImage.push('latest')
-                    }
+                    sh 'docker build -t filipeacruz/ca5-part2-Filipe-A-Cruz:${env.BUILD_ID}'
+                    sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+                    sh 'docker push filipeacruz/ca5-part2-Filipe-A-Cruz:${env.BUILD_ID}'
+                    sh 'docker logout'
+//                     script {
+//                         def customImage = docker.build("ca5-part2-Filipe-A-Cruz:${env.BUILD_ID}")
+//                         customImage.push('latest')
+//                     }
                 }
             }
         }
